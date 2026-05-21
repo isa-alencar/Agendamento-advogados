@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hibernate-configuration xmlns="https://www.hibernate.org/xsd/orm/cfg"
+	xsi:schemaLocation="https://www.hibernate.org/xsd/orm/cfg https://www.hibernate.org/xsd/orm/cfg/hibernate-configuration-3.0.xsd"
+	xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance">
+
+    <session-factory>
+        <property name="jakarta.persistence.jdbc.driver">com.mysql.cj.jdbc.Driver</property>
+        <property name="jakarta.persistence.jdbc.url"> coloque aqui o endereco da sua database (jdbc.mysql://localhost: (...))</property>
+        <property name="jakarta.persistence.jdbc.user"> coloque aqui seu USUARIO </property>
+        <property name="jakarta.persistence.jdbc.password"> coloque aqui sua SENHA </property>
+
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+
+        <property name="hibernate.current_session_context_class">thread</property>
+
+    </session-factory>
+</hibernate-configuration>
