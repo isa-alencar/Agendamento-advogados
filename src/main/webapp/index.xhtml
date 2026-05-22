@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://jakarta.faces.html"
+      xmlns:f="http://jakarta.faces.core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Sistema ADV - Agendamentos</title>
+    <style type="text/css">
+        .ui-panelgrid .ui-panelgrid-cell {
+            padding: 10px !important;
+        }
+        .full-width {
+            width: 100%;
+        }
+    </style>
+</h:head>
+
+<h:body style="background-color: #f4f4f9; font-family: Arial, sans-serif;">
+    <h:form id="formAgendamento">
+        
+        <p:panel header="Agendamento de Consultas / Reuniões" style="width: 550px; margin: 50px auto; box-shadow: 0px 4px 10px rgba(0,0,0,0.1);">
+            
+            <p:messages id="messages" showDetail="true" closable="true">
+                <p:autoUpdate />
+            </p:messages>
+
+            <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-4, ui-grid-col-8" style="width: 100%;">
+                
+                <p:outputLabel for="nomeCliente" value="Nome do Cliente:" />
+                <p:inputText id="nomeCliente" required="true" requiredMessage="O nome do cliente é obrigatório." styleClass="full-width" />
+
+                <p:outputLabel for="email" value="E-mail:" />
+                <p:inputText id="email" required="true" requiredMessage="O e-mail é obrigatório." styleClass="full-width" />
+
+                <p:outputLabel for="telefone" value="Telefone:" />
+                <p:inputMask id="telefone" mask="(99) 99999-9999" required="true" requiredMessage="O telefone é obrigatório." styleClass="full-width" />
+
+                <p:outputLabel for="nomeAdvogado" value="Advogado Solicitado:" />
+                <p:inputText id="nomeAdvogado" required="true" requiredMessage="O nome do advogado é obrigatório." styleClass="full-width" />
+
+                <p:outputLabel for="dataHora" value="Data e Hora:" />
+                <p:datePicker id="dataHora" showTime="true" pattern="dd/MM/yyyy HH:mm" required="true" requiredMessage="A data e hora são obrigatórias." styleClass="full-width" />
+
+                <p:outputLabel for="tipoReuniao" value="Tipo de Agendamento:" />
+                <p:selectOneRadio id="tipoReuniao" required="true" requiredMessage="Selecione o tipo de agendamento.">
+                    <f:selectItem itemLabel="Consulta" itemValue="true" />
+                    <f:selectItem itemLabel="Reunião" itemValue="false" />
+                </p:selectOneRadio>
+
+                <p:outputLabel for="obs" value="Observações:" />
+                <p:inputTextarea id="obs" rows="3" styleClass="full-width" />
+                
+            </p:panelGrid>
+
+            <f:facet name="footer">
+                <p:commandButton value="Confirmar Agendamento" icon="pi pi-check" style="width: 100%; margin-top: 15px; padding: 5px;" />
+            </f:facet>
+            
+        </p:panel>
+    </h:form>
+</h:body>
+</html>
