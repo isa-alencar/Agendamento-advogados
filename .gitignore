@@ -5,3 +5,4 @@
 .factorypath
 
 /src/main/resources/hibernate.cfg.xml
+/src/main/resources/META-INF/persistance.xml
