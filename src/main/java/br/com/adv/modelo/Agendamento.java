@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Table(name = "agendamentos")
 public class Agendamento {
 	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column(name= "data", nullable = false)
@@ -43,7 +43,6 @@ public class Agendamento {
 	public Agendamento() {
     }
 
-    // --- GETTERS E SETTERS ---
     public Long getId() {
         return id;
     }

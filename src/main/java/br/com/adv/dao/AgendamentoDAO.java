@@ -7,29 +7,30 @@ import java.util.List;
 
 
 public class AgendamentoDAO {
-	// 1. SALVAR (CREATE)
-    public void salvar(Agendamento agendamento) {
-        EntityManager em = HibernateUtil.getEntityManager();
-        try {
-            em.getTransaction().begin(); // Abre a transação com o banco
-            em.persist(agendamento);     // O JPA gera o INSERT INTO automaticamente!
-            em.getTransaction().commit(); // Confirma e grava no banco de dados
-        } catch (Exception e) {
-            if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback(); // Cancela tudo se der erro para não quebrar o banco
-            }
-            e.printStackTrace();
-        } finally {
-            em.close(); // Fecha a conexão (Obrigatório para não esgotar a memória)
-        }
-    }
+	
+	public void salvar(Agendamento agendamento) {
+	    EntityManager em = HibernateUtil.getEntityManager();
+	    try {
+	        em.getTransaction().begin();
+	        em.persist(agendamento);
+	        em.getTransaction().commit();
+	    } catch (Exception e) {
+	        if (em.getTransaction().isActive()) {
+	            em.getTransaction().rollback();
+	        }
+	        e.printStackTrace();
+	        throw e; // <--- ADICIONE ESTA LINHA AQUI
+	    } finally {
+	        em.close();
+	    }
+	}
 
-    // 2. ATUALIZAR (UPDATE)
+    // atualiza o agendamento depois do editar
     public void atualizar(Agendamento agendamento) {
         EntityManager em = HibernateUtil.getEntityManager();
         try {
             em.getTransaction().begin();
-            em.merge(agendamento);       // O JPA gera o UPDATE de forma automática!
+            em.merge(agendamento);
             em.getTransaction().commit();
         } catch (Exception e) {
             if (em.getTransaction().isActive()) {
@@ -41,37 +42,34 @@ public class AgendamentoDAO {
         }
     }
 
-    // 3. BUSCAR POR ID (READ - Único)
+    // busca o agendamento por seu id
     public Agendamento buscarPorId(Long id) {
         EntityManager em = HibernateUtil.getEntityManager();
         try {
-            // O JPA gera o SELECT * FROM Agendamento WHERE id = ?
             return em.find(Agendamento.class, id);
         } finally {
             em.close();
         }
     }
 
-    // 4. LISTAR TODOS (READ - Lista)
+    // faz a lista de todos os agendamentos do banco
     public List<Agendamento> listarTodos() {
         EntityManager em = HibernateUtil.getEntityManager();
         try {
-            // Aqui usamos JPQL (a linguagem de consulta do JPA que foca na Classe, não na tabela)
             return em.createQuery("FROM Agendamento", Agendamento.class).getResultList();
         } finally {
             em.close();
         }
     }
 
-    // 5. DELETAR (DELETE)
+    // deleta o agendamento
     public void deletar(Long id) {
         EntityManager em = HibernateUtil.getEntityManager();
         try {
             em.getTransaction().begin();
-            // No JPA, para deletar um objeto, ele primeiro precisa estar "rastreado" pela conexão
             Agendamento agendamento = em.find(Agendamento.class, id);
             if (agendamento != null) {
-                em.remove(agendamento);   // O JPA gera o DELETE FROM Agendamento WHERE id = ?
+                em.remove(agendamento);
             }
             em.getTransaction().commit();
         } catch (Exception e) {

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:h="http://xmlns.jcp.org/jsf/html"
+     xmlns:f="http://xmlns.jcp.org/jsf/core"
+     xmlns:p="http://primefaces.org/ui"
+     lang="en">
+<h:head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+   <title>Sistema ADV - Agendamentos</title>
+</h:head>
+<h:body style="background-color: #f4f4f9; font-family: Arial, sans-serif;">
+   <h:form id="formAgendamento">
+   	
+       <p:messages id="mensagens" closable="true" />
+       
+       <p:panel header="Novo Agendamento Jurídico" style="margin-bottom: 20px;">
+          
+           <h:inputHidden value="#{agendamentoBean.agendamento.id}" />
+           
+           <h:panelGrid columns="2" cellpadding="5">
+               <p:outputLabel for="cliente" value="Nome do Cliente:" style="font-weight: bold;" />
+               <p:inputText id="cliente" value="#{agendamentoBean.agendamento.nomeUsuario}"
+                            required="true" requiredMessage="O nome do cliente é obrigatório!" style="width: 300px;" />
+
+               <p:outputLabel for="cpf" value="CPF do Cliente:" style="font-weight: bold;" />
+               <p:inputMask id="cpf" value="#{agendamentoBean.agendamento.cpfUsuario}" mask="999.999.999-99"
+                            required="true" requiredMessage="O CPF é obrigatório!" style="width: 150px;" />
+
+               <p:outputLabel for="email" value="E-mail:" style="font-weight: bold;" />
+               <p:inputText id="email" value="#{agendamentoBean.agendamento.emailUsuario}"
+                            required="true" requiredMessage="O e-mail é obrigatório!" style="width: 300px;" />
+
+               <p:outputLabel for="advogado" value="Nome do Advogado:" style="font-weight: bold;" />
+               <p:inputText id="advogado" value="#{agendamentoBean.agendamento.nomeAdvogado}"
+                            required="true" requiredMessage="O nome do advogado é obrigatório!" style="width: 300px;" />
+
+               <p:outputLabel for="atividade" value="Tipo de Atividade:" style="font-weight: bold;" />
+               <p:selectOneMenu id="atividade" value="#{agendamentoBean.agendamento.tipoAtividade}" required="true" requiredMessage="Selecione uma atividade!" style="width: 280px;">
+                   <f:selectItem itemLabel="Selecione..." itemValue="" />
+                   <f:selectItem itemLabel="Consulta/Análise" itemValue="Consulta/Análise" />
+                   <f:selectItem itemLabel="Entrada de Processo" itemValue="Entrada de Processo" />
+                   <f:selectItem itemLabel="Entrada de Inquérito" itemValue="Entrada de Inquérito" />
+                   <f:selectItem itemLabel="Entrada de Inventário" itemValue="Entrada de Inventário" />
+               </p:selectOneMenu>
+
+               <p:outputLabel for="data" value="Data e Horário:" style="font-weight: bold;" />
+               <p:datePicker id="data" value="#{agendamentoBean.agendamento.data}" showTime="true" hourFormat="24"
+                             pattern="dd/MM/yyyy HH:mm" required="true" requiredMessage="A data e horário são obrigatórios!" style="width: 200px;" />
+
+               <p:outputLabel for="primeira" value="Primeira Reunião?" style="font-weight: bold;" />
+               <p:selectBooleanCheckbox id="primeira" value="#{agendamentoBean.agendamento.primeiraReuniao}" />
+
+               <p:outputLabel for="observacao" value="Observações:" style="font-weight: bold;" />
+               <p:inputTextarea id="observacao" value="#{agendamentoBean.agendamento.observacao}" rows="4" style="width: 300px;" />
+           </h:panelGrid>
+           
+           <br/>
+           <p:commandButton id="btnSalvar" value="Salvar Agendamento" action="#{agendamentoBean.salvar}" 
+                            update="@form" styleClass="ui-button-success" style="margin-top: 10px;" />
+       </p:panel>
+
+       <p:dataTable id="tabelaAgendamentos" value="#{agendamentoBean.listagem}" var="agend" 
+                    emptyMessage="Nenhum agendamento encontrado." style="margin-top: 20px;">
+           
+           <p:column headerText="ID" style="width: 50px; text-align: center;">
+               <h:outputText value="#{agend.id}" />
+           </p:column>
+           
+           <p:column headerText="Cliente">
+               <h:outputText value="#{agend.nomeUsuario}" />
+           </p:column>
+
+           <p:column headerText="CPF">
+               <h:outputText value="#{agend.cpfUsuario}" />
+           </p:column>
+           
+           <p:column headerText="Advogado">
+               <h:outputText value="#{agend.nomeAdvogado}" />
+           </p:column>
+
+           <p:column headerText="Atividade">
+               <h:outputText value="#{agend.tipoAtividade}" />
+           </p:column>
+           
+           <p:column headerText="Data e Hora">
+               <h:outputText value="#{agend.data}">
+                   <f:convertDateTime pattern="dd/MM/yyyy HH:mm" type="localDateTime" />
+               </h:outputText>
+           </p:column>
+           
+           <p:column headerText="Ações" style="width: 150px; text-align: center;">
+               <p:commandButton id="btnEditar" icon="pi pi-pencil" update="@form" process="@this"
+                                styleClass="ui-button-warning" style="margin-right: 5px;">
+                   <f:setPropertyActionListener value="#{agend}" target="#{agendamentoBean.agendamento}" />
+               </p:commandButton>
+              
+               <p:commandButton id="btnExcluir" icon="pi pi-trash" action="#{agendamentoBean.excluir(agend)}"
+                                update="@form" process="@this"
+                                styleClass="ui-button-danger">
+                   <p:confirm header="Confirmação" message="Deseja realmente excluir este agendamento?" icon="pi pi-exclamation-triangle" />
+               </p:commandButton>
+           </p:column>
+       </p:dataTable>
+
+       <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+           <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+           <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
+       </p:confirmDialog>
+       
+   </h:form>
+</h:body>
+</html>
