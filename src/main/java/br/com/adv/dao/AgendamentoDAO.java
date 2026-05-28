@@ -19,7 +19,7 @@ public class AgendamentoDAO {
 	            em.getTransaction().rollback();
 	        }
 	        e.printStackTrace();
-	        throw e; // <--- ADICIONE ESTA LINHA AQUI
+	        throw e;
 	    } finally {
 	        em.close();
 	    }
@@ -37,6 +37,7 @@ public class AgendamentoDAO {
                 em.getTransaction().rollback();
             }
             e.printStackTrace();
+	        throw e;
         } finally {
             em.close();
         }
@@ -77,6 +78,7 @@ public class AgendamentoDAO {
                 em.getTransaction().rollback();
             }
             e.printStackTrace();
+	        throw e;
         } finally {
             em.close();
         }
