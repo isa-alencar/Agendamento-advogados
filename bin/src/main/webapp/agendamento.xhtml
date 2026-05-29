@@ -8,48 +8,15 @@
      lang="en">
 <h:head>
    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
    <title>Sistema ADV - Agendamentos</title>
 </h:head>
-<h:body style="background-color: #f4f4f9; font-family: Arial, sans-serif;">	
-
-    <h:form id="formLogout">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: white; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-            <h2 style="margin: 0; font-family: Arial, sans-serif; color: #333;">Gerenciamento de Agendamentos</h2>
-            <p:commandButton value="Sair" action="#{loginBean.logout}" icon="pi pi-sign-out" styleClass="ui-button-danger" ajax="false" />
-        </div>
-    </h:form>
-	
-    <script>
-	    window.onload = function() {
-	        if (!localStorage.getItem('tutorialExibido')) {
-	            const steps = [
-	                { title: 'Olá, bem-vindo', text: 'Este é o sistema de Agendamentos Jurídicos.' },
-	                { title: 'Cadastro', text: 'Preencha os dados do cliente e clique em Salvar.' },
-	                { title: 'Gestão', text: 'Você pode editar ou excluir agendamentos na tabela abaixo.' }
-	            ];
-	            Swal.mixin({
-	                confirmButtonText: 'Próximo &rarr;',
-	                showCancelButton: true,
-	                progressSteps: ['1', '2', '3']
-	            }).queue(steps).then((result) => {
-	                if (result.value) {
-	                    Swal.fire({
-	                        title: 'Finalizar',
-	                        text: 'Agora você já sabe como usar o sistema.',
-	                        icon: 'success'
-	                    });
-	                    localStorage.setItem('tutorialExibido', 'true');
-	                }
-	            });
-	        }
-	    };
-	</script>
-
+<h:body style="background-color: #f4f4f9; font-family: Arial, sans-serif;">
    <h:form id="formAgendamento">
+   	
        <p:messages id="mensagens" closable="true" />
        
        <p:panel header="Novo Agendamento Jurídico" style="margin-bottom: 20px;">
+          
            <h:inputHidden value="#{agendamentoBean.agendamento.id}" />
            
            <h:panelGrid columns="2" cellpadding="5">
@@ -112,7 +79,7 @@
            <p:column headerText="Advogado">
                <h:outputText value="#{agend.nomeAdvogado}" />
            </p:column>
-           
+
            <p:column headerText="Atividade">
                <h:outputText value="#{agend.tipoAtividade}" />
            </p:column>
@@ -143,6 +110,5 @@
        </p:confirmDialog>
        
    </h:form>
-
 </h:body>
 </html>

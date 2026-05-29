@@ -8,10 +8,16 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
 import java.time.LocalDateTime;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
 
 @Entity
 @Table(name = "agendamentos")
 public class Agendamento {
+	@ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -113,5 +119,13 @@ public class Agendamento {
 
     public void setObservacao(String observacao) {
         this.observacao = observacao;
+    }
+    
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }

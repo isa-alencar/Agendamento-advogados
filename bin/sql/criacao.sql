@@ -1,0 +1,11 @@
+CREATE TABLE Agendamento ( 
+	id BIGINT AUTO_INCREMENT PRIMARY KEY, 
+	data DATETIME NOT NULL, 
+	nomeUsuario VARCHAR(100) NOT NULL, 
+	cpfUsuario VARCHAR(14) NOT NULL, 
+	emailUsuario VARCHAR(50) NOT NULL, 
+	nomeAdvogado VARCHAR(100) NOT NULL, 
+	tipoAtividade VARCHAR(50) NOT NULL,
+	primeiraReuniao BOOLEAN NOT NULL DEFAULT TRUE,
+	observacao TEXT
+)

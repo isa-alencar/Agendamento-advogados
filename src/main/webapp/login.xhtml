@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Login - Sistema ADV</title>
+    
+    <style type="text/css">
+        .botao-entrar {
+            background-color: #0096c7 !important;
+            color: white !important;
+        }
+        .botao-entrar:hover {
+            background-color: #0096c7 !important;
+        }
+        
+        .botao-primeiro-acesso {
+            background-color: #fb8b24 !important;
+            color: white !important;
+        }
+        .botao-primeiro-acesso:hover {
+            background-color: #fb8b24 !important;
+        }
+    </style>
+    
+</h:head>
+
+<h:body style="background: #fefae0">
+	<h:form id="formLogin">
+	    <p:messages id="mensagens" closable="true" style="width: 350px; margin: 0 auto 10px auto;">
+	        <p:autoUpdate />
+	    </p:messages>
+	
+	    <p:dialog header="Autenticação - Sistema ADV" modal="true" visible="true" 
+	              closable="false" draggable="false" resizable="false" width="380">
+	              
+	        <h:panelGrid columns="2" cellpadding="5" style="width: 100%;">
+	            <p:outputLabel for="email" value="E-mail:" style="font-weight: bold;" />
+	            <p:inputText id="email" value="#{loginBean.email}" required="true" 
+	                         requiredMessage="O e-mail é obrigatório." style="width: 100%;" />
+	            
+	            <p:outputLabel for="senha" value="Senha:" style="font-weight: bold;" />
+	            <p:password id="senha" value="#{loginBean.senha}" required="true" 
+	                        requiredMessage="A senha é obrigatória." style="width: 100%;" />
+	        </h:panelGrid>
+	
+	        <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 15px;">
+	            <p:commandButton value="Entrar" action="#{loginBean.autenticar}" 
+	                             update="@form" styleClass="botao-entrar" style="width: 100%;" />
+	            
+	            <p:commandButton value="Primeiro Acesso" action="#{loginBean.salvarPrimeiroAcesso}" 
+	                             update="@form" styleClass="botao-primeiro-acesso" style="width: 100%;" />
+	        </div>
+	    </p:dialog>
+	</h:form>
+</h:body>
+</html>
